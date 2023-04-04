@@ -3,7 +3,7 @@ const { format } = winston;
 const fs = require('fs');
 const faker = require('faker');
 
-const logDir = '/var/log/log-genetor';
+const logDir = '/var/log/log-generator';
 
 
 // Create the log directory if it does not exist
@@ -17,7 +17,7 @@ const logger = winston.createLogger({
     format.timestamp(),
     format.json()
   ),
-  defaultMeta: { service: 'log-genetor' },
+  defaultMeta: { service: 'log-generator' },
   transports: [
     new winston.transports.File({
       filename: `${logDir}/app.log`,

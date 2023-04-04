@@ -11,10 +11,10 @@ RUN git clone https://github.com/kaumina/log-generator.git .
 RUN npm install
 
 # Create log directory
-RUN mkdir -p /var/log/log-genetor
+RUN mkdir -p /var/log/log-generator
 
 # Set permissions for log directory
-RUN chown -R node:node /var/log/log-genetor
+RUN chown -R node:node /var/log/log-generator
 
 # Set user to non-root user
 USER node

@@ -1,0 +1,15 @@
+{
+  "name": "log-generator",
+  "version": "1.0.0",
+  "description": "A sample Node.js app that generates random logs",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "faker": "^5.5.3",
+    "winston": "^3.8.2"
+  }
+}

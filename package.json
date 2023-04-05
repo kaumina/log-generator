@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app.js"
   },
-  "author": "Your Name",
+  "author": "Kaumina",
   "license": "MIT",
   "dependencies": {
     "faker": "^5.5.3",

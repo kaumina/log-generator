@@ -1,23 +1,19 @@
-# Use a Node.js 14.x base image
-FROM node:14
+# The build image__
+FROM node:latest AS build
+RUN apt-get update && apt-get install -y --no-install-recommends dumb-init
+WORKDIR /usr/src/app
+COPY package*.json /usr/src/app/
+RUN npm ci --only=production && \
+   rm -f .npmrc
 
-# Set working directory to /app
-WORKDIR /app
+# The production image
+FROM node:gallium-bullseye-slim
 
-# Clone the log-generator repository
-RUN git clone https://github.com/kaumina/log-generator.git .
-
-# Install dependencies
-RUN npm install
-
-# Create log directory
-RUN mkdir -p /var/log/log-generator
-
-# Set permissions for log directory
-RUN chown -R node:node /var/log/log-generator
-
-# Set user to non-root user
+ENV NODE_ENV production
+COPY --from=build /usr/bin/dumb-init /usr/bin/dumb-init
+RUN mkdir -p /var/log/log-generator && chown node:node /var/log/log-generator
 USER node
-
-# Start the app
-CMD [ "npm", "start" ]
+WORKDIR /usr/src/app
+COPY --chown=node:node --from=build /usr/src/app/node_modules /usr/src/app/node_modules
+COPY --chown=node:node . /usr/src/app
+CMD ["dumb-init", "node", "app.js"]
